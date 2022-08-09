@@ -1,7 +1,7 @@
-
+Aplikacja napisana podczas kursu MegaK
 ******************************************************************
 npm i express-handlebars@5.3.4 == gdyby handelbarsy nie dzialaly
-to instalujemy
+to instalujemy tą wersje
 ******************************************************************
 pseudo kodzik
 konfiguracja expressa
