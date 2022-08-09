@@ -1,0 +1,75 @@
+const express = require('express')
+
+class ConfiguratorRouter {
+  constructor (cmapp) {
+    this.cmapp = cmapp
+    this.router = express.Router()
+    this.setUpRoutes()
+  }
+
+  setUpRoutes () {
+    this.router.get('/select-base/:baseName', this.selectBase)
+    this.router.get('/add-addon/:addonName', this.addAddon)
+    this.router.get('/delete-addon/:addonName', this.deleteAddon)
+  }
+
+  selectBase = (req, res) => {
+    const { baseName } = req.params
+
+    if (!this.cmapp.data.COOKIE_BASES[baseName]) {
+      return this.cmapp.showErrorPage(res, `There is no such base as ${baseName}.`)
+    }
+
+    res
+      .cookie('cookieBase', baseName)
+      .render('configurator/base-selected', {
+        baseName,
+      })
+  }
+
+  addAddon = (req, res) => {
+
+    const { addonName } = req.params
+
+    if (!this.cmapp.data.COOKIE_ADDONS[addonName]) {
+      return this.cmapp.showErrorPage(res, `There is no such addon as ${addonName}.`)
+    }
+
+    const addons = this.cmapp.getAddonsFromReq(req)
+
+    if (addons.includes(addonName)) {
+      return this.cmapp.showErrorPage(res,`${addonName} is already on your cookie. You can not have it twice`,
+      )
+    }
+
+    addons.push(addonName)
+    res
+      .cookie('cookieAddons', JSON.stringify(addons))
+      .render('configurator/added', {
+        addonName,
+      })
+  }
+
+  deleteAddon = (req, res) => {
+    const { addonName } = req.params
+
+    const oldAddons = this.cmapp.getAddonsFromReq(req)
+    if (!oldAddons.includes(addonName)) {
+      return this.cmapp.showErrorPage(res, `Can't delete something that isn't addet to your cookie. ${addonName} not found on your cookie.`)
+
+    }
+
+    const addons = oldAddons.filter(addon => addon !== addonName)
+
+    res
+      .cookie('cookieAddons', JSON.stringify(addons))
+      .render('configurator/deleted', {
+        addonName,
+      })
+  }
+}
+
+
+    module.exports = {
+      ConfiguratorRouter,
+    }

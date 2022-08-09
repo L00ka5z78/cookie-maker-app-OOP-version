@@ -1,0 +1,54 @@
+.cookie-preview {
+    width: 601px;
+    height: 640px;
+
+}
+
+.error {
+    border: 1px solid red;
+    padding: 15px;
+    background-color: #e25353;
+
+}
+
+
+.success {
+    border: 1px solid green;
+    padding: 15px;
+    background-color: #5d9a5d;
+
+}
+
+.btn {
+
+    background: #c1bbb1;
+    color: #360a0a;
+    text-decoration: none;
+    padding: 5px;
+    border: 1px solid brown;
+    font-weight: bold;
+    margin: 3px;
+    border-radius: 5px;
+    display: inline-block;
+}
+.btn-disabled {
+    background: #585858;
+    color: white;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn-small {
+    padding: 0 5px;
+    margin: 0;
+}
+
+.btn-big {
+    font-size: 110%;
+    padding: 10px 20px;
+}
+
+.cart-img {
+    width: 32px;
+    vertical-align: middle;
+}
